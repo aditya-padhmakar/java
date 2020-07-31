@@ -1,0 +1,340 @@
+package aditya00;
+
+import java.util.Scanner;
+
+public class DoublyLL {
+	public static class Dnode {
+		int data;
+		Dnode next,prev;
+		
+		Dnode(int data)
+		{
+			this.data=data;
+			this.prev=null;
+			this.next=null;
+		}
+	}
+	
+	public static void rev(Dnode head)
+	{
+		Dnode temp=head;
+		
+		while(temp.next!=null)
+		{
+			temp=temp.next;
+		}
+		
+		while(temp!=null)
+		{
+			System.out.println(temp.data);
+			temp=temp.prev;
+		}
+		
+		//return head;
+	}
+	
+	
+	
+	public static Dnode delete1(Dnode head,int d)
+	{
+		Dnode temp=head;
+		if(head.data==d)
+		{
+			head=head.next;
+			head.next.prev=null;
+			return head;
+		}
+		else
+		{
+			while(temp.next!=null && (temp.next).data!=d)// important condition
+			{
+				temp=temp.next;
+			}
+			if(temp.next!=null)
+			{
+				Dnode a=(temp.next).next;
+				temp.next=a;
+				a.prev=temp;
+				return head;
+			}
+			else
+			{
+				System.out.println("ele not found in list");
+				return head;
+			}
+		}
+		
+	}
+
+	
+	public static void mid(Dnode head)
+	{
+		Dnode slow=head;
+		Dnode fast=head.next;
+		while(fast!=null && fast.next!=null)
+		{
+			slow=slow.next;
+			fast=fast.next.next;
+		}
+		System.out.println("mid ele of list is "+slow.data);
+	}
+	
+	
+	public static Dnode delete(Dnode head,int i)
+	{
+		Dnode temp=head;
+		int c=0;
+		if(i==0)
+		{
+			head=head.next;
+			head.next.prev=null;
+			return head;
+		}
+		while(c<i-1 && temp!=null)
+		{
+			c++;
+			temp=temp.next;
+		}
+		Dnode a=temp.next.next;
+		temp.next=a;
+		a.prev=temp;
+		
+		return head;
+	}
+	
+	
+	
+	public static Dnode del_front(Dnode head)
+	{
+		head=head.next;
+		head.next.prev=null;
+		return head;
+	}
+	
+	
+	public static Dnode del_end(Dnode head)
+	{
+		Dnode temp=head;
+		while(temp.next!=null && temp.next.next!=null)
+		{
+			temp=temp.next;
+		}
+		if(temp.next==null)
+		   temp=null;
+		
+		if(temp.next.next==null)
+		{
+			temp.next=null;
+		}
+		
+		return head;
+	}
+	
+	
+	public static Dnode insert(Dnode head, int i,int data)
+	{
+		int c=0;
+		Dnode newnode=new Dnode(data);
+		Dnode temp=head;
+		
+		if(i==0)
+		{
+			head.prev=newnode;
+			newnode.next=head;
+			head=newnode;
+			
+			return head;
+		}
+		
+		while(c<i-1 && temp!=null)
+		{
+			c++;
+			temp=temp.next;
+		}
+		Dnode a=temp.next;
+		temp.next=newnode;
+		newnode.prev=temp;
+		newnode.next=a;
+		a.prev=newnode;
+		
+		return head;
+		
+	}
+	
+	public static Dnode ins_end(Dnode head,int data)
+	{
+		Dnode newnode=new Dnode(data);
+		Dnode temp=head;
+		while(temp.next!=null)
+		{
+			temp=temp.next;
+		}
+		temp.next=newnode;
+		newnode.prev=temp;
+		
+		return head;
+	}
+	
+	
+	
+	public static Dnode ins_front(Dnode head,int data)
+	{
+		Dnode newnode=new Dnode(data);
+		head.prev=newnode;
+		newnode.next=head;
+		head=newnode;
+		
+		return head;
+	}
+	
+	public static void print(Dnode head)
+	{
+		while(head!=null)
+		{
+			System.out.println(head.data);
+			head=head.next;
+		}
+	}
+	
+	
+	public static Dnode input()
+	{
+		Dnode head=null;
+		Dnode tail=null;
+		Scanner input=new Scanner(System.in);
+		int data=input.nextInt();
+		while(data!=-1)
+		{
+			Dnode newnode=new Dnode(data);
+			if(head==null)
+			{
+				head=newnode;
+				tail=newnode;
+			}
+			
+			else
+			{
+				tail.next=newnode;
+				newnode.prev=tail;
+				tail=newnode;
+			}
+			data=input.nextInt();
+		}
+		
+		return head;
+		
+	}
+	
+	public static void count(Dnode head)
+	{
+		int c=0;
+		while(head!=null)
+		{
+			c++;
+			head=head.next;
+		}
+		System.out.println("numbr of ele in list "+c);
+	}
+	
+	
+	
+	
+	
+	public static void sum(Dnode head)
+	{
+		int s=0;
+		while(head!=null)
+		{
+			s=s+head.data;
+			head=head.next;
+		}
+		System.out.println("Sum of the ele in list "+s);
+	}
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner in= new Scanner(System.in);
+		//String s="continue";
+		char ch='y';
+		Dnode head=null;
+		System.out.println("Enter Elements In Linked-List");
+		head=input();
+		while(ch=='y')
+		{
+		
+			System.out.println("1.enter element at a perticular index");
+			System.out.println("2.print elements");
+			System.out.println("3.sum of all the elements");
+			System.out.println("4.count the numer of the elements");
+			System.out.println("5.delete element from a perticular index");
+			System.out.println("6.delete element with its value");
+			System.out.println("7.mid element of the list");
+			System.out.println("8.enter ele at front");
+			System.out.println("9.enter ele at end");
+			System.out.println("10.delete ele from end");
+			System.out.println("11.delete ele from front");
+			System.out.println("12.print linked list in reverse order");
+			System.out.println("enter you choice");
+			int choice=in.nextInt();
+			switch(choice)
+			{
+			case 1:
+				System.out.println("enter the index at which you want to enter the element");
+				int i=in.nextInt();
+				System.out.println("enter the data which you want to enter");
+				int data=in.nextInt();
+				head=insert(head,i,data);
+				break;
+			case 2:
+				print(head);
+				break;
+			case 3:
+				sum(head);
+				break;
+			case 4:
+				count(head);
+				break;
+			case 5:
+				System.out.println("1.enter index of ele you want to delete");
+				int n=in.nextInt();
+				head=delete(head,n);
+				break;
+			case 6:
+				System.out.println("enter the vlaue of ele you want to delete");
+				int d=in.nextInt();
+				head=delete1(head,d);
+				break;
+			case 7:
+				mid(head);
+				break;
+			case 8:
+				System.out.println("enter the ele");
+				int d1=in.nextInt();
+				head=ins_front(head,d1);
+				break;
+			case 9:
+				System.out.println("enter the ele");
+				int d2=in.nextInt();
+				head=ins_end(head,d2);
+				break;
+			case 10:
+				head=del_end(head);
+				break;
+			case 11:
+				head=del_front(head);
+				break;
+			case 12:
+				rev(head);
+				break;
+			default:
+				System.out.println("invalid choice");
+			}
+			System.out.println("enter y to continue else n to stop");
+			ch=in.next().charAt(0);
+		}
+		System.out.println("Thank you :) !!");
+		//in.close();
+	}
+
+}
