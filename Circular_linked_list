@@ -89,408 +89,53 @@ public class Circular_LL {
 	
 	public static void delete1(int d)
 	{
-		Node temp=head;
+		
 		if(head.data==d)
 		{
-			Node a=head.next;
-			head=a;
-			//return head;
-		}
-		else
-		{
-			while(temp.next!=null && (temp.next).data!=d)// important condition
-			{
+			Node temp=head;
+			
+			do {
 				temp=temp.next;
-			}
-			if(temp.next!=null)
-			{
-				Node a=(temp.next).next;
-				temp.next=a;
-				//return head;
-			}
-			else
-			{
-				System.out.println("ele not found in list");
-				//return head;
-			}
+			}while(temp.next!=head);
+			
+			tail=temp;
+			head=head.next;
+			tail.next=head;
+			return;
 		}
 		
-	}
-
-	
-	
-	
-	
-	public static void insert(int i,int data)
-	{
-		Node newnode=new Node(data);
-		int c=0;
-		Node temp=head;
-		if(i==0)
-		{
-			newnode.next=head;
-			head=newnode;
-			//return head;
-		}
-		while(c<i-1 && temp.next!=null)
-		{
-			temp=temp.next;
-			c++;
-		}
-		if(temp.next!=null) 
-		{
-			newnode.next=temp.next;
-			temp.next=newnode;
-			/*
-			or 
-			Node a=temp.next;
-			temp.next=newnode;
-			newnode.next=a;
-			*/
-		}
-		//return head;
-	}
-
-	
-
-	public static void delete(int i)
-	{
-		Node temp=head;
-		if(i==0)
-		{
-			Node a=head.next;
-			head=a;
-			//return head;
-		}
-		else
-		{
-			int c=0;
-			while(c<i-1 && temp!=null)
+		
+		    Node temp=head;
+			
+			
+			 if(temp.next.data==d)
 			{
-				temp=temp.next;
-				c++;
-			}
-			if(temp.next!=null) 
-			{
-				Node a=temp.next;
-				Node b=a.next;
+				Node b=temp.next.next;
 				temp.next=b;
+				return;
 			}
-		}
-		//return head;
-	}
-
-	
-	
-	
-	
-	public static void del_front()
-	{
-		Node temp=head;
-		
-		do {
-			temp=temp.next;
-		}while(temp.next!=head);
-		
-		tail=temp;
-		head=head.next;
-		tail.next=head;
-		
-	}
-	
-	public static void del_end()
-	{
-		Node temp=head;
-		do {
-			temp=temp.next;
-		}while(temp.next.next!=head);
-		
-		tail=temp;
-		tail.next=head;
-		
-	}
-	
-	
-	public static void ins_end(int data)
-	{
-		Node newnode=new Node(data);
-		Node temp=head;
-		do {
-			temp=temp.next;
-		} while (temp.next!=head);
-		
-		tail=temp;
-		tail.next=newnode;
-		tail=newnode;
-		tail.next=head;
-		
-		//return head;
-	}
-	
-	public static void ins_front(int data)
-	{
-		Node newnode=new Node(data);
-		
-		Node temp=head;
-		do 
-		{
-			temp=temp.next;
-		}
-		while(temp.next!=head);
-		 tail=temp;
-		newnode.next=head;
-		head=newnode;
-		
-		tail.next=head;
-		
-		//return head;
-	}
-	
-	public static void print()
-	{
-		Node temp=head;
-		do
-		{
-			System.out.println(temp.data);
-			temp=temp.next;
-		}
-		while(head!=temp);
-	}
-	
-	
-	
-	
-	public static void input()
-	{
-		Scanner input=new Scanner(System.in);
-//		Node head=null;
-//		Node tail=null;
-		
-		int data=input.nextInt();
-		while(data!=-1)
-		{
-			Node newnode=new Node(data);
-			if(head==null)
-			{
-				head=newnode;
-				tail=newnode;
-			}
+			 
 			
-			else
-			{
-				tail.next=newnode;
-				tail=newnode;
-				tail.next=head;
-			}
-			data=input.nextInt();
+				
+				do
+				{
+					temp=temp.next;
+				}
+				while(temp.next!=head && (temp.next).data!=d);// important condition
+				
+				if(temp.next!=head)
+				{
+					Node a=(temp.next).next;
+					temp.next=a;
+					return;
+				}
+				else
+				{
+					System.out.println("ele not found");
+				}
+				
 			
-		}
-		//return head;
-	}
-	
-	public static Node head=null;
-	public static Node tail=null;
-
-	public static void main(String[] args) {
-		Scanner in= new Scanner(System.in);
-		//String s="continue";
-		char ch='y';
-		System.out.println("Enter Elements In Linked-List");
-		input();
-		while(ch=='y')
-		{
 		
-			System.out.println("1.enter element at a perticular index");
-			System.out.println("2.print elements");
-			System.out.println("3.sum of all the elements");
-			System.out.println("4.count the numer of the elements");
-			System.out.println("5.delete element from a perticular index");
-			System.out.println("6.delete element with its value");
-			System.out.println("7.mid element of the list");
-			System.out.println("8.enter ele at front");
-			System.out.println("9.enter ele at end");
-			System.out.println("10.delete ele from end");
-			System.out.println("11.delete ele from front");
-			System.out.println("12.print linked list in reverse order");
-			System.out.println("enter you choice");
-			int choice=in.nextInt();
-			switch(choice)
-			{
-			case 1:
-				System.out.println("enter the index at which you want to enter the element");
-				int i=in.nextInt();
-				System.out.println("enter the data which you want to enter");
-				int data=in.nextInt();
-				insert(i,data);
-				break;
-			case 2:
-				print();
-				break;
-			case 3:
-				sum();
-				break;
-			case 4:
-				count();
-				break;
-			case 5:
-				System.out.println("1.enter index of ele you want to delete");
-				int n=in.nextInt();
-				delete(n);
-				break;
-			case 6:
-				System.out.println("enter the vlaue of ele you want to delete");
-				int d=in.nextInt();
-				delete1(d);
-				break;
-			case 7:
-				mid();
-				break;
-			case 8:
-				System.out.println("enter the ele");
-				int d1=in.nextInt();
-				ins_front(d1);
-				break;
-			case 9:
-				System.out.println("enter the ele");
-				int d2=in.nextInt();
-				ins_end(d2);
-				break;
-			case 10:
-				del_end();
-				break;
-			case 11:
-				del_front();
-				break;
-			case 12:
-				rev(head);
-				break;
-			default:
-				System.out.println("invalid choice");
-			}
-			System.out.println("enter y to continue else n to stop");
-			ch=in.next().charAt(0);
-		}
-		System.out.println("Thank you :) !!");
-		//in.close();
-	}
-
-}
-package aditya00;
-
-import java.util.Scanner;
-
-public class Circular_LL {
-	
-	
-	public static class Node {
-		int data;
-		Node next;
-		
-		Node(int n)
-		{
-			this.data=n;
-			next=null;
-		}
-
-	}
-	
-	
-	public static void sum()
-	{
-		Node temp=head;
-		int s=0;
-		do
-		{
-			s=s+temp.data;
-			temp=temp.next;
-		}
-		while(temp.next!=head);
-		s+=temp.data;
-		
-		System.out.println("sum of list is "+s);
-	}
-	
-	public static void rev(Node temp)
-	{
-		if(temp.next==head)
-		{
-			System.out.println(temp.data);
-			return;
-		}
-		
-		rev(temp.next);
-		System.out.println(temp.data);
-	}
-	
-	
-	public static void mid()
-	{
-		Node slow=head;
-		Node fast=head.next;
-		do
-		{
-			slow=slow.next;
-			fast=fast.next.next;
-		}
-		while(fast!=head && fast.next!=head);
-		System.out.println("mid ele of list is "+slow.data);
-	}
-	
-	
-	
-	
-
-	
-	public static void rev(Node head,Node temp)
-	{
-		if(temp.next==head)
-			return;
-	
-		rev(temp,temp.next);
-		System.out.println(temp.data);
-		
-	}
-	
-	public static void count()
-	{
-		Node temp=head;
-		int c=1;
-		do {
-			c++;;
-			temp=temp.next;
-		}while(temp.next!=head);
-		
-		System.out.println(c);
-	}
-	
-	
-	public static void delete1(int d)
-	{
-		Node temp=head;
-		if(head.data==d)
-		{
-			Node a=head.next;
-			head=a;
-			//return head;
-		}
-		else
-		{
-			while(temp.next!=null && (temp.next).data!=d)// important condition
-			{
-				temp=temp.next;
-			}
-			if(temp.next!=null)
-			{
-				Node a=(temp.next).next;
-				temp.next=a;
-				//return head;
-			}
-			else
-			{
-				System.out.println("ele not found in list");
-				//return head;
-			}
-		}
 		
 	}
 
