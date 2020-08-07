@@ -1,0 +1,49 @@
+package myprog;
+
+import java.util.*;
+
+public class PalinStack {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner input=new Scanner(System.in);
+		System.out.println("enter the string");
+		String str=input.next();
+		Stack<Character> stk=new Stack<Character>();
+		
+		
+		
+		int l=str.length(),i;
+//		System.out.println(l);
+		for(i=0;i<l/2;i++)
+		{
+			char ch=str.charAt(i);
+			stk.push(ch);
+		}
+		
+		if(l%2!=0)
+		{
+			i++;
+		}
+		
+		int g=0;
+		for(;i<l;i++)
+		{
+			char c=stk.pop();
+//			System.out.println(c+" stack");
+//			System.out.println(str.charAt(i));
+			if(c!=str.charAt(i))
+			{
+				//System.out.println("NO");
+				g=1;
+				break;
+			}
+		}
+//		System.out.println(g);
+		if(g==0)
+		System.out.println("YES");
+		else
+		System.out.println("NO");
+	}
+
+}
