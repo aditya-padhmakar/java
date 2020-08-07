@@ -1,0 +1,113 @@
+package aditya00;
+
+import java.util.Scanner;
+
+public class StackArray {
+	
+	public static class Stack
+	{
+		private int a[];
+		private int top;
+		private int size;
+		
+		
+    
+    boolean isEmpty()
+		{
+			return (top<0);
+		}
+    
+    
+		
+		Stack(int n)
+		{
+			a=new int[n];
+			top=-1;
+			size=n;
+		}
+		
+		
+    
+    void push(int e)
+		{
+			if(top > size-1)
+			{
+				System.out.println("stack overflow");
+				return;
+			}
+			else
+			{
+				top++;
+				a[top]=e;
+			}
+		}
+		
+		
+		
+    
+    void pop()
+		{
+			if(top<0)
+			{
+				System.out.println("stack underflow");
+				//return Integer.MIN_VALUE;
+			}
+			else
+			{
+				System.out.println(a[top]+" popped from stack");
+				top--;
+			}
+		}
+		
+		
+		
+    
+    
+    int peek()
+		{
+			if(top<0)
+			{
+				System.out.println("satck is underflow");
+				return Integer.MIN_VALUE;
+			}
+			else
+			{
+				return a[top];
+			}
+		}
+		
+		int size()
+		{
+			return top+1;
+		}
+		
+		
+	}
+	
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner input=new Scanner(System.in);
+		System.out.println("enter size of Stack");
+		int n=input.nextInt();
+		
+		Stack s=new Stack(n);
+		
+		System.out.println("enter ele");
+		for(int i=0;i<n;i++)
+		{
+			int e=input.nextInt();
+			s.push(e);
+		}
+		
+		s.pop();
+		s.pop();
+		System.out.println("is empty ? "+s.isEmpty());
+		System.out.println("size of satck is "+s.size());
+		System.out.println("topmost element is "+s.peek());
+		
+		input.close();
+	}
+
+}
