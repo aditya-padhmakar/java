@@ -1,0 +1,134 @@
+package aditya00;
+
+public class TwostackArray {
+	
+	private int a[];
+	private int top1;
+	private int top2;
+	private int cap;
+	
+	TwostackArray(int n)
+	{
+		a=new int[n];
+		top1=-1;
+		top2=n;
+		cap=n;
+	}
+	
+	void push1(int n)
+	{
+		if(top1<top2-1)
+		{
+			System.out.println(n+" is pushed in stack1");
+			a[++top1]=n;
+		}
+		else
+		{
+			System.out.println("stack1 is overflow");
+			return;
+		}
+	}
+	
+	
+	void push2(int n)
+	{
+		if(top2>top1+1)
+		{
+			System.out.println(n+" is pushed in stack2");
+			a[--top2]=n;
+		}
+		else
+		{
+			System.out.println("stcak2 is overflow");
+			return;
+		}
+	}
+	
+	void pop2()
+	{
+		if(top2<cap)
+		{
+			System.out.println(a[top2]+"popped");
+			top2++;
+		}
+		else
+		{
+			System.out.println("underflow");
+			return;
+		}
+	}
+	
+
+	void pop1()
+	{
+		if(top1 > -1)
+		{
+			System.out.println(a[top1]+" popped");
+			top1--;
+		}
+		else
+		{
+			System.out.println("underflow");
+			return;
+		}
+	}
+	
+	void size1()
+	{
+		System.out.println("size of stack1 is "+(top1+1));
+	}
+	
+	
+	void size2()
+	{
+		System.out.println("size of stack2 is "+(cap-top2));
+	}
+	
+	void empty1()
+	{
+		if(top1==-1)
+		{
+			System.out.println("is empty ?:"+true);
+		}
+		else
+		{
+			System.out.println("is empty ?:"+false);
+		}
+	}
+	
+	
+	void empty2()
+	{
+		if(top1==cap)
+		{
+			System.out.println("is empty ?:"+true);
+		}
+		else
+		{
+			System.out.println("is empty ?:"+false);
+		}
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		TwostackArray s1= new TwostackArray(5);
+		s1.push1(10);
+		s1.push1(20);
+		s1.push1(30);
+		s1.push2(40);
+		s1.push2(50);
+		s1.push2(60);
+		s1.push1(80);
+		
+		s1.pop1();
+		s1.pop1();
+		s1.push2(70);
+		s1.push2(80);
+		
+		s1.size1();
+		s1.size2();
+		
+		s1.empty1();
+		s1.empty2();
+	}
+
+}
