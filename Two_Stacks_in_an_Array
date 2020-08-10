@@ -39,7 +39,7 @@ public class TwostackArray {
 		}
 		else
 		{
-			System.out.println("stcak2 is overflow");
+			System.out.println("stack2 is overflow");
 			return;
 		}
 	}
@@ -48,12 +48,12 @@ public class TwostackArray {
 	{
 		if(top2<cap)
 		{
-			System.out.println(a[top2]+"popped");
+			System.out.println(a[top2]+"popped from stack2");
 			top2++;
 		}
 		else
 		{
-			System.out.println("underflow");
+			System.out.println("stack2 is underflow");
 			return;
 		}
 	}
@@ -63,12 +63,12 @@ public class TwostackArray {
 	{
 		if(top1 > -1)
 		{
-			System.out.println(a[top1]+" popped");
+			System.out.println(a[top1]+" popped from stack1");
 			top1--;
 		}
 		else
 		{
-			System.out.println("underflow");
+			System.out.println("stack1 is underflow");
 			return;
 		}
 	}
@@ -88,24 +88,24 @@ public class TwostackArray {
 	{
 		if(top1==-1)
 		{
-			System.out.println("is empty ?:"+true);
+			System.out.println("stack1 is empty ?:"+true);
 		}
 		else
 		{
-			System.out.println("is empty ?:"+false);
+			System.out.println("stack1 is empty ?:"+false);
 		}
 	}
 	
 	
 	void empty2()
 	{
-		if(top1==cap)
+		if(top2==cap)
 		{
-			System.out.println("is empty ?:"+true);
+			System.out.println("stack2 is empty ?:"+true);
 		}
 		else
 		{
-			System.out.println("is empty ?:"+false);
+			System.out.println("stack2 is empty ?:"+false);
 		}
 	}
 	public static void main(String[] args) {
@@ -126,9 +126,23 @@ public class TwostackArray {
 		
 		s1.size1();
 		s1.size2();
+		s1.pop2();
+		s1.pop2();
+		s1.pop2();
+		s1.pop2();
+		s1.pop2();
+		s1.pop1();
+		s1.pop1();
 		
 		s1.empty1();
 		s1.empty2();
+		
+		s1.push1(10);
+		s1.push1(20);
+		s1.push1(30);
+		s1.push1(40);
+		s1.push1(50);
+		s1.push1(60);
 	}
 
 }
