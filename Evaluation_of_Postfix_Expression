@@ -1,0 +1,54 @@
+package aditya00;
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Postfix_solve {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner input=new Scanner(System.in);
+		String exp;
+		Stack<Integer> stk=new Stack<Integer>();
+		System.out.println("enter the expression");
+		exp=input.nextLine();
+		for(int i=0;i<exp.length();i++)
+		{
+			char ch=exp.charAt(i);
+			
+				if(ch=='+')
+				{
+					int a=stk.pop();
+					int b=stk.pop();
+					stk.push(b+a);
+				}
+				else if(ch=='-')
+				{
+					int a=stk.pop();
+					int b=stk.pop();
+					stk.push(b-a);
+				}
+				else if(ch=='/')
+				{
+					int a=stk.pop();
+					int b=stk.pop();
+					int c=b/a;
+					stk.push(c);
+				}
+				else if(ch=='*')
+				{
+					int a=stk.pop();
+					int b=stk.pop();
+					stk.push(a*b);
+				}
+				else
+				{
+					int c=Character.getNumericValue(ch);
+					stk.push(c);
+				}
+			}
+		System.out.println(stk.pop());
+		input.close();
+	}
+
+}
