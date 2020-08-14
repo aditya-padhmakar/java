@@ -1,0 +1,112 @@
+package aditya00;
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Infix_prefix {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner input=new Scanner(System.in);
+		String exp;
+		Stack<Character> stk=new Stack<Character>();
+		System.out.println("enter the expression");
+		exp=input.nextLine();
+		char ch[]=new char[exp.length()];
+		for(int i=0,j=exp.length()-1;j>=0;j--,i++)
+		{
+			if(exp.charAt(j)==')')
+			{
+				ch[i]='(';
+			}
+			else if(exp.charAt(j)=='(')
+			{
+				ch[i]=')';
+			}
+			else
+			{
+				ch[i]=exp.charAt(j);
+			}
+		}
+		
+		String st="";
+		
+		for(int i=0;i<ch.length;i++)
+		{
+			char c=ch[i];
+			if(c>='a' && c<='z')
+			{
+				st+=c;
+			}
+			else
+			{
+				if(stk.empty())
+				{
+					stk.push(c);
+				}
+				else if(c=='+' || c=='-')
+				{
+					if(stk.peek()!='(' && stk.peek()!=')')
+					{
+						st+=stk.pop();
+						
+						while(stk.empty()==false && (stk.peek()=='+' || stk.peek()=='-' || stk.peek()=='/' || stk.peek()=='*'))
+						{
+							st+=stk.pop();
+						}
+									
+							stk.push(c);
+						
+					}
+					else
+					{
+						stk.push(c);
+					}
+					
+				}
+				else if(c=='*' || c=='/')
+				{
+					if(stk.peek()=='*' || stk.peek()=='/')
+					{
+						st+=stk.pop();
+						stk.push(c);
+					}
+					else
+					{
+						stk.push(c);
+					}
+				}
+				else if(c=='(')
+				{
+					stk.push(c);
+				}
+				else if(c==')')
+				{
+					while(stk.peek()!='(')
+					{
+						st+=stk.pop();
+					}
+					stk.pop();
+				}
+				else if(c=='^')
+				{
+					stk.push(c);
+				}
+			}
+		}
+		
+		//System.out.println(stk.peek());
+		
+		while(stk.empty()==false)
+		{
+			st+=stk.pop();
+		}
+		
+		
+		StringBuilder sb=new StringBuilder(st);
+		System.out.println(sb.reverse());
+		input.close();
+
+	}
+
+}
