@@ -1,0 +1,80 @@
+package aditya00;
+
+
+ class Node1<T>
+ {
+	T data;
+	Node1<T> next;
+	
+	Node1 (T n)
+	{
+		this.data=n;
+		next=null;
+	}
+
+}
+
+public class StackLL <V>{
+	private Node1<V> head;
+	private int size;
+	
+	StackLL()
+	{
+		head=null;
+		size=0;
+	}
+	
+	void push(V n)
+	{
+		Node1<V> newnode=new Node1<V>(n);
+//		if(head==null)
+//		{
+//			head=newnode;
+//		}
+//		else
+//		{
+//			newnode.next=head;
+//			head=newnode;
+//		}
+		newnode.next=head;
+		head=newnode;
+//		head=newnode;
+
+		size++;
+	}
+	
+	void pop()
+	{
+		if(head==null)
+		{
+			System.out.println("Underflow ::)!");
+			return;
+		}
+		else
+		{
+			System.out.println(head.data+" is popped.");
+			head=head.next;
+			size--;
+		}
+		
+	}
+	
+	void getsize()
+	{
+		System.out.println("size of stack is: "+size);
+	}
+	
+	void peek()
+	{
+		System.out.println("peek element of stack is: "+head.data);
+	}
+	
+	void isEmpty()
+	{
+		if(size==0)
+			System.out.println("is empty ?: true");
+		else
+			System.out.println("is empty ?: false");
+		
+	}
+}
