@@ -1,0 +1,110 @@
+package aditya00;
+
+public class QueueArray1 {
+	
+	
+	public static class QueueArray<T> {
+		private T a[];
+		private int size;
+		private int cap;
+		private int fi;
+		private int ni;
+		
+		public QueueArray(int n)
+		{
+			a=(T[]) new Object[n];
+			cap=n;
+			size=0;
+			fi=-1; 
+			ni=0;
+		}
+		
+		void getSize() 
+		{
+			System.out.println("Size of the queue is: "+size);
+		}
+		
+		boolean isEmpty()
+		{
+			return(size==0);
+			
+		}
+		
+		void enqueue(T ele)
+		{
+			if(size==cap)
+			{
+				System.out.println("queue full");
+				return;
+			}
+			
+			System.out.println(ele +" is inserted into queue");
+			a[ni]=ele;
+			ni=(ni+1)%cap; 
+			if(fi==-1)
+			{
+				fi=0;
+			}
+			size++;
+		}
+			
+		
+		void front()
+		{
+			if(fi==-1 || isEmpty())
+			{
+				System.out.println("queue is empty");
+				return;
+			}
+			System.out.println("front ele of queue is "+ a[fi]);
+		}
+
+		
+		T dequeue()
+		{
+			if(isEmpty())
+			{
+				System.out.println("queue is empty");
+				return null;
+			}
+			T ans=a[fi];
+			fi=(fi+1)%cap;
+			size--;
+			
+			if(size==0)
+			{
+				fi=-1;
+				ni=0;
+			}
+			return ans;
+			//System.out.println("deleted ele from queue is "+ans);
+		}
+	}
+
+	
+	
+	
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		QueueArray<Integer> q=new QueueArray<Integer>(1);
+		q.enqueue(10);
+		q.enqueue(20);
+//		q.enqueue(30);
+//		q.enqueue(40);
+//		q.enqueue(50);
+//		q.enqueue(60);
+//		
+		q.front();
+		System.out.println("deleted ele: "+q.dequeue());
+		System.out.println("deleted ele: "+q.dequeue());
+		System.out.println("deleted ele: "+q.dequeue());
+		
+		
+		q.getSize();
+		System.out.println("is queue empty()?: "+q.isEmpty());
+		q.front();
+	}
+
+}
