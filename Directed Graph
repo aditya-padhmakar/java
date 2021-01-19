@@ -1,0 +1,273 @@
+package aditya00;
+
+import java.util.*;
+
+public class DirectedGraph {
+	
+	public static Scanner input=new Scanner(System.in);
+	
+	public static void printDFS(int a[][],int v,int sv,boolean vis[])
+	{
+		System.out.print(sv+" ");
+		vis[sv]=true;
+		
+		for(int i=0;i<v;i++)
+		{
+			if(i==sv)
+			{
+				continue;
+			}
+			else
+			{
+				if(a[sv][i]==1)
+				{
+					if(vis[i])
+					{
+						continue;
+					}
+					else
+					{
+						printDFS(a,v,i,vis);
+					}
+				}
+			}
+		}
+	}
+	
+	public static void printPathDFS(int a[][],int v,int sv,int ev,boolean visited[],ArrayList<Integer> ans)
+	{
+		if(ev >= v)
+		{
+			return;
+		}
+		
+		if(sv==ev)
+		{
+			ans.add(ev);
+			visited[sv]=true;
+			return;
+		}
+		
+		visited[sv]=true;
+		ans.add(sv);
+		
+		for(int i=0;i<v+1;i++)
+		{
+			if(i == sv)
+			{
+				continue;
+			}
+			
+			if(a[sv][i] == 1)
+			{
+				if(visited[i])
+				{
+					continue;
+				}
+				
+				printPathDFS(a,v,i,ev,visited,ans);
+				
+				if(!ans.contains(ev))
+				{
+					ans.remove((i));
+					continue;
+				}
+				
+				if(ans.contains(ev))
+				{
+					break;
+				}	
+			}
+		}
+	}
+	
+	
+	public static void DFS(int a[][],int v)
+	{
+		boolean vis[]=new boolean[v];
+		for(int i=0;i<v;i++)
+		{
+			vis[i]=false;
+		}
+		
+		//ArrayList<Integer> ans= new ArrayList<Integer>();
+		System.out.println("enter the start vertex");
+		int sv=input.nextInt();
+		
+		printDFS(a,v,sv,vis);
+	}
+	
+	
+	public static void printBFS(int a[][],int v,int sv,boolean vis[])
+	{
+		Queue<Integer> q=new LinkedList<Integer>();
+		q.add(sv);
+		vis[sv]=true;
+		while(q.size()!=0)
+		{
+			int bq=q.remove();
+			System.out.print(bq+" ");
+			
+			for(int i=0;i<v;i++)
+			{
+				if(i==sv)
+				{
+					continue;
+				}
+				else
+				{
+					if(a[bq][i]==1 && !vis[i])
+					{
+						q.add(i);
+						vis[i]=true;
+					}
+				}
+			}
+		}
+	}
+	
+	
+	public static HashMap<Integer,Integer> printPathBFS(int a[][],int v,int sv,int ev,boolean vis[])
+	{
+		if(ev >= v)
+		{
+			return null;
+		}
+		
+		Queue<Integer> pv=new LinkedList<Integer>();
+		HashMap<Integer,Integer> path=new HashMap<Integer,Integer>();
+		
+		pv.add(sv);
+		vis[sv]=true;
+		
+		while(!pv.contains(ev))
+		{
+			
+				int cv=pv.remove();
+				
+				for(int i=0;i<v;i++)
+				{
+					if(i == cv)
+					{
+						continue;
+					}
+					
+					if(a[cv][i] == 1 && !vis[i])
+					{
+						pv.add(i);
+						path.put(i, cv);
+						vis[i]=true;
+					}
+				}
+
+			}
+		
+		return path;
+	}
+
+	
+	
+	public static void BFS(int a[][],int v)
+	{
+		boolean vis[]=new boolean[v];
+		for(int i=0;i<v;i++)
+		{
+			vis[i]=false;
+		}
+		
+		System.out.println("enter the start vertex");
+		int sv=input.nextInt();
+		
+		printBFS(a,v,sv,vis);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.out.println("enter no of vertices and edges");
+		int v=input.nextInt();
+		int e=input.nextInt();
+		
+		int a[][]=new int[v][v];
+		
+		for(int i=0;i<v;i++)
+		{
+			for(int j=0;j<v;j++)
+			{
+				a[i][j]=0;
+			}
+		}
+		
+		System.out.println("enter the edges");
+		for(int i=0;i<e;i++)
+		{
+			int f,s;
+			f=input.nextInt();
+			s=input.nextInt();
+			a[f][s]=1;
+		}
+		
+		char c='y';
+		
+		while(c=='y')
+		{
+			System.out.println("1.DFS");
+			System.out.println("2.BFS");
+			System.out.println("3.print DFS Path");
+			System.out.println("4.print BFS Path");
+			System.out.println("enter your choice");
+			int ch=input.nextInt();
+			switch(ch)
+			{
+			case 1:
+				//System.out.println("DFS");
+				DFS(a,v);
+				break;
+			case 2:
+				//System.out.println("BFS");
+				BFS(a,v);
+				break;
+			case 3:
+				ArrayList<Integer> ans=new ArrayList<Integer>();
+				System.out.println("enter start ans end vertex");
+				int sv=input.nextInt();
+				int ev=input.nextInt();
+				
+				boolean vis[]=new boolean[v];
+				for(int i=0;i<v;i++)
+				{
+					vis[i]=false;
+				}
+				
+				printPathDFS(a,v,sv,ev,vis,ans);
+				System.out.println(ans);
+				break;
+			case 4:
+				HashMap<Integer,Integer> ans1=new HashMap<Integer,Integer>();
+				System.out.println("enter start ans end vertex");
+				int sv1=input.nextInt();
+				int ev1=input.nextInt();
+				
+				boolean vis1[]=new boolean[v];
+				for(int i=0;i<v;i++)
+				{
+					vis1[i]=false;
+				}
+				
+				ans1=printPathBFS(a,v,sv1,ev1,vis1);
+				System.out.println(ans1);
+				break;
+			default:
+				System.out.println("enter valid choice");
+			}
+			
+			System.out.println("\nenter the y to continue else n \n");
+			c=input.next().charAt(0);
+		}
+		
+		System.out.println("(:-");
+	}
+	
+	
+
+}
