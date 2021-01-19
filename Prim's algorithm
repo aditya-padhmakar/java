@@ -1,0 +1,114 @@
+package aditya00;
+
+import java.util.Scanner;
+
+public class Prims {
+	
+	public static int findminvertex(int weight[],boolean visited[],int v)
+	{
+		int  minvertex=-1;
+		for(int i=0;i<v;i++)
+		{
+			if(!visited[i] && (minvertex == -1 || weight[i] < weight[minvertex]))
+			{
+				minvertex=i;
+			}
+		}
+		
+		return minvertex;
+	}
+	
+	public static void Prims(int a[][],int v)
+	{
+		int parent[]=new int[v];
+		int weight[]=new int[v];
+		boolean visited[]=new boolean[v];
+		
+		for(int i=0;i<v;i++)
+		{
+			visited[i]=false;
+			weight[i]=Integer.MAX_VALUE;
+		}
+		
+		parent[0]=-1;
+		weight[0]=0;
+		
+		for(int i=0;i<v-1;i++)
+		{
+			// find min vertex
+			int minvertex=findminvertex(weight,visited,v);
+			visited[minvertex]=true;
+			// explore unvisited vertex
+			for(int j=0;j<v;j++)
+			{
+				if(a[minvertex][j] !=0 && !visited[j])
+				{
+					if(a[minvertex][j] < weight[j])
+					{
+						weight[j]=a[minvertex][j];
+						parent[j]=minvertex;
+					}
+				}
+			}
+		}
+		
+		System.out.println("MST using Prim's");
+		for(int i=1;i<v;i++)
+		{
+			if(parent[i] < i)
+			{
+				System.out.println(parent[i]+" "+i+" "+weight[i]);
+			}
+			else
+			{
+				System.out.println(i+" "+parent[i]+" "+weight[i]);
+			}
+		}
+	}
+
+	/*
+	 * sample graph
+	    5
+	    7
+	 
+	    0 1 4
+		0 2 8
+		1 3 6
+		1 2 2
+		2 3 3
+		2 4 9
+		3 4 5
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner input=new Scanner(System.in);
+		System.out.println("enter no of vertices and edges");
+		int v=input.nextInt();
+		int e=input.nextInt();
+		
+		int a[][]=new int[v+1][v+1];
+		
+		for(int i=0;i<v;i++)
+		{
+			for(int j=0;j<v;j++)
+			{
+				a[i][j]=0;
+			}
+		}
+		
+		System.out.println("enter the edges along with weights");
+		for(int i=0;i<e;i++)
+		{
+			int f,s,w;
+			f=input.nextInt();
+			s=input.nextInt();
+			w=input.nextInt();
+			a[f][s]=w;
+			a[s][f]=w;
+		}
+		
+		Prims(a,v);
+
+	}
+
+}
