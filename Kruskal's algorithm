@@ -1,0 +1,116 @@
+package aditya00;
+
+import java.util.*;
+
+class Edge
+{
+	public int source;
+	public int dest;
+	public int weight;
+	
+	Edge(int source,int dest, int weight)
+	{
+		this.source=source;
+		this.dest=dest;
+		this.weight=weight;
+	}
+}
+
+
+class SortByWeight implements Comparator<Edge>
+{
+	public int compare(Edge a,Edge b)
+	{
+		return a.weight-b.weight;
+	}
+}
+
+
+public class Kruskal {
+	
+	public static int findParent(int v,int parent[])
+	{
+		if(parent[v] == v)
+		{
+			return v;
+		}
+		
+		return findParent(parent[v],parent);
+	}
+	
+	
+	public static void Kruskal(Edge a[],int v,int e)
+	{
+		//sort the array based on weights
+		Arrays.sort(a,new SortByWeight());
+		
+		Edge output[]=new Edge[v-1];
+		
+		// parent array for union find algo
+		int parent[]=new int[v];
+		for(int i=0;i<v;i++)
+		{
+			parent[i]=i;
+		}
+		
+		int count=0; //counts the edge
+		int i=0; //on which edge are we
+		
+		while(count!=v-1)
+		{
+			Edge curedge=a[i];
+			
+			//check if we can add the current edge in the MST
+			int soupar=findParent(curedge.source,parent);
+			int destpar=findParent(curedge.dest,parent);
+			
+			if(soupar != destpar)
+			{
+				output[count]=curedge;
+				count++;
+				
+				parent[soupar]=destpar;
+			}
+			i++;
+		}
+		
+		System.out.println("MST");
+		for(int j=0;j<v-1;j++) // n-1 because MST will contain only n-1 edges
+		{
+			if(output[j].source < output[j].dest)
+			{
+				System.out.print(output[j].source+" "+output[j].dest+" "+output[j].weight+" \n");
+			}
+			else
+			{
+				System.out.print(output[j].dest+" "+output[j].source+" "+output[j].weight+" \n");
+			}
+		}
+	}
+	
+	
+	
+	public static void main(String ags[])
+	{
+	    Scanner input=new Scanner(System.in);
+		int v,e;
+		System.out.println("enter no of vertex and edges");
+		v=input.nextInt();
+		e=input.nextInt();
+		
+		Edge a[]=new Edge[e];
+		
+		System.out.println("enter the edges");
+		for(int i=0;i<e;i++)
+		{
+		//	int s,d,w;
+ 
+			int s=input.nextInt();
+			int d=input.nextInt();
+			int w=input.nextInt();
+			a[i]=new Edge(s,d,w);
+		}
+		
+		Kruskal(a,v,e);
+	}
+}
