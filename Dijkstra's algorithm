@@ -1,0 +1,93 @@
+package aditya00;
+
+import java.util.Scanner;
+
+public class Dijkastra {
+	
+	public static int findminvertex(int distance[],boolean vis[],int v)
+	{
+		int minvertex=-1;
+		for(int i=0;i<v;i++)
+		{
+			if(!vis[i] && (minvertex == -1 || distance[i] < distance[minvertex]))
+			{
+				minvertex=i;
+			}
+		}
+		
+		return minvertex;
+	}
+	
+	
+	public static void Dijkastra(int a[][],int v)
+	{
+		int distance[]=new int[v];
+		boolean vis[]=new boolean[v];
+		for(int i=0;i<v;i++)
+		{
+			distance[i]=Integer.MAX_VALUE;
+			vis[i]=false;
+		}
+		
+		//source  is 0  zero
+		distance[0]=0;
+		
+		for(int i=0;i<v-1;i++)
+		{
+			int minvertex=findminvertex(distance,vis,v);
+			vis[minvertex]=true;
+			
+			for(int j=0;j<v;j++)
+			{
+				if(a[minvertex][j]!=0 && !vis[j])
+				{
+					int dis=distance[minvertex]+a[minvertex][j];
+					
+					if(dis < distance[j])
+					{
+						distance[j]=dis;
+					}
+				}
+			}
+		}
+		
+		
+		for(int i=0;i<v;i++)
+		{
+			System.out.println(i + " "+distance[i]);
+			
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner input=new Scanner(System.in);
+		System.out.println("enter no of vertices and edges");
+		int v=input.nextInt();
+		int e=input.nextInt();
+		
+		int a[][]=new int[v+1][v+1];
+		
+		for(int i=0;i<v;i++)
+		{
+			for(int j=0;j<v;j++)
+			{
+				a[i][j]=0;
+			}
+		}
+		
+		System.out.println("enter the edges along with weights");
+		for(int i=0;i<e;i++)
+		{
+			int f,s,w;
+			f=input.nextInt();
+			s=input.nextInt();
+			w=input.nextInt();
+			a[f][s]=w;
+			a[s][f]=w;
+		}
+		
+		Dijkastra(a,v);
+	}
+
+}
